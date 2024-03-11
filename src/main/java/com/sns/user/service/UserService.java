@@ -71,7 +71,7 @@ public class UserService {
         Sort sort = Sort.by(Sort.Direction.ASC, "username");
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<User> users = userRepository.findAll(pageable);
+        Page<User> users = userRepository.searchAllUserInfo(pageable);
 
         return users.map(UserResponseDto::new);
     }
