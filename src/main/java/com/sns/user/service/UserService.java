@@ -48,8 +48,7 @@ public class UserService {
     @Transactional
     public void logout(UserDetails userDetails) {
 
-        User user = userRepository.findByEmail(userDetails.getUsername())
-            .orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
+        User user = getUserByEmail(userDetails.getUsername());
 
         RefreshTokenEntity refreshToken = tokenRepository.findByUserId(user.getId());
 
@@ -68,11 +67,24 @@ public class UserService {
     }
 
     public Page<UserResponseDto> getAllUserInfo(int page, int size) {
+
         Sort sort = Sort.by(Sort.Direction.ASC, "username");
         Pageable pageable = PageRequest.of(page, size, sort);
-
         Page<User> users = userRepository.searchAllUserInfo(pageable);
 
         return users.map(UserResponseDto::new);
+    }
+
+    @Transactional
+    public void deleteUserInfo(UserDetails userDetails) {
+
+        User user = getUserByEmail(userDetails.getUsername());
+
+        user.softDelete();
+    }
+
+    private User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
     }
 }

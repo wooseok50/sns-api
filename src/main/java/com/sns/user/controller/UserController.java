@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +58,13 @@ public class UserController {
     ) {
         Page<UserResponseDto> responseDto = userService.getAllUserInfo(page - 1, size);
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteUserInfo(
+        @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        userService.deleteUserInfo(userDetails);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
