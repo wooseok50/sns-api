@@ -1,5 +1,6 @@
 package com.sns.user.dto;
 
+import com.sns.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,8 +11,8 @@ public class UserResponseDto {
     private final String email;
     private final String username;
 
-    public UserResponseDto(String email, String nickname) {
-        this.email = email;
-        this.username = nickname;
+    public UserResponseDto(User user) {
+        this.email = user.getEmail();
+        this.username = user.getUsername();
     }
 }

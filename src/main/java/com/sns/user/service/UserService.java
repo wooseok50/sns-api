@@ -10,6 +10,10 @@ import com.sns.user.entity.User;
 import com.sns.user.entity.UserRole;
 import com.sns.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,5 +65,14 @@ public class UserService {
             .email(user.getEmail())
             .username(user.getUsername())
             .build();
+    }
+
+    public Page<UserResponseDto> getAllUserInfo(int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "username");
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<User> users = userRepository.findAll(pageable);
+
+        return users.map(UserResponseDto::new);
     }
 }
