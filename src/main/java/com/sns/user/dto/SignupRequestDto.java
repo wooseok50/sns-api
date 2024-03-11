@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignupRequestDto {
 
-    @NotBlank
-    @Email(message = "Please enter a valid email")
-    @Size(max = 40)
+    @NotBlank(message = "이메일은 필수 입력 값입니다.")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "이메일 주소 형식을 지켜주세요")
     private String email;
 
     @NotBlank
