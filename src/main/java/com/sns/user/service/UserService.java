@@ -52,10 +52,9 @@ public class UserService {
         tokenRepository.deleteToken(refreshToken);
     }
 
-
     public UserResponseDto getUserInfo(Long userId) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.searchUserInfo(userId)
             .orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
 
         return UserResponseDto.builder()
