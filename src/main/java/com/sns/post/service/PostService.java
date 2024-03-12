@@ -39,6 +39,13 @@ public class PostService {
         return responseDto;
     }
 
+    @Transactional
+    public void deletePost(Long postId) {
+
+        Post post = findPost(postId);
+        post.softDelete();
+    }
+
     private Post findPost(Long postId) {
         return postRepository.findById(postId).orElseThrow(()
             -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));

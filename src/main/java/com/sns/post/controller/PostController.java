@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +38,13 @@ public class PostController {
     ) {
         PostResponseDto responseDto = postService.getPost(postId);
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(
+        @PathVariable Long postId
+    ) {
+        postService.deletePost(postId);
+        return ResponseEntity.status(HttpStatus.OK.value()).build();
     }
 }
