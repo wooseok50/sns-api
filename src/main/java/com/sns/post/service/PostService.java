@@ -84,7 +84,12 @@ public class PostService {
     }
 
     private Post findPost(Long postId) {
-        return postRepository.findById(postId).orElseThrow(()
-            -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+        return postRepository.findById(postId).orElseThrow(
+            () -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+    }
+
+    public void throwExceptionIfPostNotFound(Long postId) {
+        postRepository.findById(postId).orElseThrow(
+            () -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
     }
 }
