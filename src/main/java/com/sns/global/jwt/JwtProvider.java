@@ -60,7 +60,7 @@ public class JwtProvider {
                 .setSubject(info)
                 .claim(AUTHORIZATION_KEY, role)
                 .setExpiration(new Date(now.getTime() + time))
-                .setIssuedAt(now)
+                .setIssuedAt(now) // 발행
                 .signWith(key, SIGNATURE_ALGORITHM)
                 .compact();
     }
@@ -109,7 +109,7 @@ public class JwtProvider {
         }
 
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); // 검증
             return VALID;
         } catch (SecurityException | MalformedJwtException |
                  SignatureException e) {

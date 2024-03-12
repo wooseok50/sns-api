@@ -1,6 +1,7 @@
 package com.sns.user.controller;
 
 import com.sns.global.dto.CommonResponseDto;
+import com.sns.global.security.UserDetailsImpl;
 import com.sns.user.dto.SignupRequestDto;
 import com.sns.user.dto.UserResponseDto;
 import com.sns.user.service.UserService;
@@ -37,9 +38,9 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<CommonResponseDto<String>> logout(
-        @AuthenticationPrincipal UserDetails userDetails
+        @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
-        userService.logout(userDetails);
+        userService.logout(userDetailsImpl.getUser().getId());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -62,9 +63,9 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteUserInfo(
-        @AuthenticationPrincipal UserDetails userDetails
+        @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
-        userService.deleteUserInfo(userDetails);
+        userService.deleteUserInfo(userDetailsImpl.getUser());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

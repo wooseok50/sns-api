@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,11 +45,9 @@ public class UserService {
     }
 
     @Transactional
-    public void logout(UserDetails userDetails) {
+    public void logout(Long userId) {
 
-        User user = getUserByEmail(userDetails.getUsername());
-
-        RefreshTokenEntity refreshToken = tokenRepository.findByUserId(user.getId());
+        RefreshTokenEntity refreshToken = tokenRepository.findByUserId(userId);
 
         tokenRepository.deleteToken(refreshToken);
     }
@@ -76,15 +73,7 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUserInfo(UserDetails userDetails) {
-
-        User user = getUserByEmail(userDetails.getUsername());
-
+    public void deleteUserInfo(User user) {
         user.softDelete();
-    }
-
-    private User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-            .orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
     }
 }

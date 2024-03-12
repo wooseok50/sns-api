@@ -1,5 +1,6 @@
 package com.sns.user.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sns.user.entity.QUser;
 import com.sns.user.entity.User;
@@ -37,7 +38,7 @@ public class SearchUserImpl implements SearchUser {
         long total = jpaQueryFactory
             .selectFrom(user)
             .where(user.deleted_YN.eq("N"))
-            .fetchCount();
+            .fetch().size();
 
         return new PageImpl<>(users, pageable, total);
     }
