@@ -42,6 +42,13 @@ public class ControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidInputException(PostNotFoundException e) {
+        log.error(e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleUnhandledException(RuntimeException e) {
         log.error("처리되지 않은 예외 발생", e);
