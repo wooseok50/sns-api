@@ -45,7 +45,7 @@ public class Post extends Timestamped {
         this.content = requestDto.getContent();
     }
 
-      public void softDelete() {
+    public void softDelete() {
         this.deleted_YN = "Y";
     }
 }

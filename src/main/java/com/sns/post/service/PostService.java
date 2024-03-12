@@ -8,6 +8,10 @@ import com.sns.post.entity.Post;
 import com.sns.post.repository.PostRepository;
 import com.sns.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +46,18 @@ public class PostService {
         return responseDto;
     }
 
+    @Transactional(readOnly = true)
+    public Page<PostResponseDto> getPostsByOptions(String title, String username, int page,
+        int size) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "created_at");
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Post> posts = postRepository.findBySearchOption(title, username, pageable);
+
+        return posts.map(PostResponseDto::new);
+    }
+
     @Transactional
     public void updatePost(Long postId, Long userId, PostRequestDto postRequestDto) {
 
@@ -53,6 +69,7 @@ public class PostService {
 
         post.updatePost(postRequestDto);
     }
+
 
     @Transactional
     public void deletePost(Long postId, Long userId) {

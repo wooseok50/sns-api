@@ -5,6 +5,7 @@ import com.sns.post.dto.PostRequestDto;
 import com.sns.post.dto.PostResponseDto;
 import com.sns.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,9 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,6 +40,18 @@ public class PostController {
         @PathVariable Long postId
     ) {
         PostResponseDto responseDto = postService.getPost(postId);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PostResponseDto>> getPostsByOptions(
+        @RequestParam(value = "title", required = false) String title,
+        @RequestParam(value = "username", required = false) String username,
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        Page<PostResponseDto> responseDto = postService.getPostsByOptions(title, username, page - 1,
+            size);
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
     }
 
