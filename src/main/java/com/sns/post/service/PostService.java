@@ -33,7 +33,9 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponseDto getPost(Long postId) {
 
-        Post post = findPost(postId);
+        Post post = postRepository.searchPost(postId).orElseThrow(()
+            -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+
         PostResponseDto responseDto = new PostResponseDto(post);
 
         return responseDto;
