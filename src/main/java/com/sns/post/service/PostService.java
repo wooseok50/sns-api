@@ -1,5 +1,6 @@
 package com.sns.post.service;
 
+import com.sns.global.exception.InvalidInputException;
 import com.sns.global.exception.PostNotFoundException;
 import com.sns.post.dto.PostRequestDto;
 import com.sns.post.dto.PostResponseDto;
@@ -42,12 +43,24 @@ public class PostService {
     }
 
     @Transactional
+    public void updatePost(Long postId, Long userId, PostRequestDto postRequestDto) {
+
+        Post post = findPost(postId);
+
+        if (!post.getUserId().equals(userId)) {
+            throw new InvalidInputException("자신의 게시글만 수정할 수 있습니다.");
+        }
+
+        post.updatePost(postRequestDto);
+    }
+
+    @Transactional
     public void deletePost(Long postId, Long userId) {
 
         Post post = findPost(postId);
 
         if (!post.getUserId().equals(userId)) {
-            throw new PostNotFoundException("자신의 게시글만 삭제할 수 있습니다.");
+            throw new InvalidInputException("자신의 게시글만 삭제할 수 있습니다.");
         }
 
         post.softDelete();

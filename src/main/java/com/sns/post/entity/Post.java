@@ -1,6 +1,7 @@
 package com.sns.post.entity;
 
 import com.sns.global.util.Timestamped;
+import com.sns.post.dto.PostRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +40,12 @@ public class Post extends Timestamped {
     @Column(length = 20, nullable = false)
     private String username;
 
-    public void softDelete() {
+    public void updatePost(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
+
+      public void softDelete() {
         this.deleted_YN = "Y";
     }
 }

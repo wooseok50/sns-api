@@ -43,14 +43,15 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
     }
 
-//    @PutMapping("/{postId}")
-//    public ResponseEntity<Void> updatePost(
-//        @PathVariable Long postId,
-//        @AuthenticationPrincipal UserDetailsImpl userDetails
-//    ) {
-//        postService.updatePost(postId, userDetails.getUser());
-//        return ResponseEntity.status(HttpStatus.OK.value()).build();
-//    }
+    @PutMapping("/{postId}")
+    public ResponseEntity<Void> updatePost(
+        @PathVariable Long postId,
+        @AuthenticationPrincipal UserDetailsImpl userDetails,
+        @RequestBody PostRequestDto postRequestDto
+    ) {
+        postService.updatePost(postId, userDetails.getUser().getId(), postRequestDto);
+        return ResponseEntity.status(HttpStatus.OK.value()).build();
+    }
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(
