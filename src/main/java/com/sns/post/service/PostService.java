@@ -42,9 +42,14 @@ public class PostService {
     }
 
     @Transactional
-    public void deletePost(Long postId) {
+    public void deletePost(Long postId, Long userId) {
 
         Post post = findPost(postId);
+
+        if (!post.getUserId().equals(userId)) {
+            throw new PostNotFoundException("자신의 게시글만 삭제할 수 있습니다.");
+        }
+
         post.softDelete();
     }
 

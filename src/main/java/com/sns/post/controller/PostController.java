@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,11 +43,21 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
     }
 
+//    @PutMapping("/{postId}")
+//    public ResponseEntity<Void> updatePost(
+//        @PathVariable Long postId,
+//        @AuthenticationPrincipal UserDetailsImpl userDetails
+//    ) {
+//        postService.updatePost(postId, userDetails.getUser());
+//        return ResponseEntity.status(HttpStatus.OK.value()).build();
+//    }
+
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(
-        @PathVariable Long postId
+        @PathVariable Long postId,
+        @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        postService.deletePost(postId);
+        postService.deletePost(postId, userDetails.getUser().getId());
         return ResponseEntity.status(HttpStatus.OK.value()).build();
     }
 }
