@@ -60,7 +60,7 @@ public interface UserService {
      *
      * @param userId 조회할 유저 ID
      */
-    void throwExceptionIfUserNotFound(Long userId);
+    void checkValidateUser(Long userId);
 
     /**
      * 유저 객체 반환

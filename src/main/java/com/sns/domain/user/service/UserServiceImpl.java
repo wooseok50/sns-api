@@ -85,10 +85,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void throwExceptionIfUserNotFound(Long userId) {
+    public void checkValidateUser(Long userId) {
         userRepository.findById(userId).orElseThrow(
             () -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
     }
+
 
     @Override
     public User findUser(Long userId) {

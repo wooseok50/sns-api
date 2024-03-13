@@ -94,7 +94,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void throwExceptionIfPostNotFound(Long postId) {
+    public void checkValidatePost(Long postId) {
         postRepository.findById(postId).orElseThrow(
             () -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
     }

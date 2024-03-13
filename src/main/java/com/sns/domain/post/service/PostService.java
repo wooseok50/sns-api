@@ -79,5 +79,5 @@ public interface PostService {
      *
      * @param postId 조회할 게시글 Id
      */
-    void throwExceptionIfPostNotFound(Long postId);
+    void checkValidatePost(Long postId);
 }

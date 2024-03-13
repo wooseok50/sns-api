@@ -4,8 +4,8 @@ import com.sns.domain.follow.dto.FollowerResponseDto;
 import com.sns.domain.follow.dto.FollowingResponseDto;
 import com.sns.domain.follow.entity.Follow;
 import com.sns.domain.follow.repository.FollowRepository;
-import com.sns.global.exception.InvalidInputException;
 import com.sns.domain.user.service.UserService;
+import com.sns.global.exception.InvalidInputException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class FollowServiceImpl implements FollowService {
             throw new InvalidInputException("자신을 팔로우할 수 없습니다.");
         }
 
-        userService.throwExceptionIfUserNotFound(toUserId);
+        userService.checkValidateUser(toUserId);
 
         Follow follow = Follow.builder()
             .fromUserId(fromUserId)
@@ -52,7 +52,7 @@ public class FollowServiceImpl implements FollowService {
     @Transactional
     public void deleteFollow(Long fromUserId, Long toUserId) {
 
-        userService.throwExceptionIfUserNotFound(toUserId);
+        userService.checkValidateUser(toUserId);
 
         Follow follow = followRepository.findByFromUserIdAndToUserId(fromUserId, toUserId)
             .orElseThrow(() -> new InvalidInputException("해당 팔로우를 찾을 수 없습니다."));

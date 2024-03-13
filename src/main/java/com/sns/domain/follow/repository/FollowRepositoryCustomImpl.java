@@ -4,8 +4,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sns.domain.follow.dto.FollowerResponseDto;
 import com.sns.domain.follow.dto.FollowingResponseDto;
-import com.sns.follow.entity.QFollow;
-import com.sns.user.entity.QUser;
+import com.sns.domain.follow.entity.QFollow;
+import com.sns.domain.user.entity.QUser;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 

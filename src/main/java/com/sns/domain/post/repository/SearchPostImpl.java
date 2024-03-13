@@ -4,7 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sns.domain.post.entity.Post;
-import com.sns.post.entity.QPost;
+import com.sns.domain.post.entity.QPost;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

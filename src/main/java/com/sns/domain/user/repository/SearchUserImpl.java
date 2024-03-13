@@ -1,8 +1,8 @@
 package com.sns.domain.user.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sns.domain.user.entity.QUser;
 import com.sns.domain.user.entity.User;
-import com.sns.user.entity.QUser;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
