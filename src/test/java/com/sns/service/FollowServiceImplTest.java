@@ -15,6 +15,8 @@ import com.sns.domain.follow.entity.Follow;
 import com.sns.domain.follow.repository.FollowRepository;
 import com.sns.domain.follow.service.FollowServiceImpl;
 import com.sns.domain.user.entity.User;
+import com.sns.domain.user.service.UserService;
+import com.sns.domain.user.service.UserServiceImpl;
 import com.sns.global.exception.InvalidInputException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,8 @@ class FollowServiceImplTest {
     private FollowServiceImpl followServiceImpl;
     @Mock
     private FollowRepository followRepository;
-
+    @Mock
+    private UserServiceImpl userServiceImpl;
     Long testFromUserId;
     Long testToUserId;
 
