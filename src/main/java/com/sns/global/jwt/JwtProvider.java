@@ -1,10 +1,6 @@
 package com.sns.global.jwt;
 
-import static com.sns.global.jwt.TokenState.EXPIRED;
-import static com.sns.global.jwt.TokenState.INVALID;
-import static com.sns.global.jwt.TokenState.VALID;
-
-import com.sns.user.entity.UserRole;
+import com.sns.domain.user.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -105,25 +101,25 @@ public class JwtProvider {
     // 토큰 정보를 검증하는 메서드
     public TokenState validateToken(final String token) {
         if (!StringUtils.hasText(token)) {
-            return INVALID;
+            return TokenState.INVALID;
         }
 
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); // 검증
-            return VALID;
+            return TokenState.VALID;
         } catch (SecurityException | MalformedJwtException |
                  SignatureException e) {
             log.error("[Invalid JWT signature]", e);
-            return INVALID;
+            return TokenState.INVALID;
         } catch (ExpiredJwtException e) {
             log.error("[Expired JWT token]", e);
-            return EXPIRED;
+            return TokenState.EXPIRED;
         } catch (UnsupportedJwtException e) {
             log.error("[Unsupported JWT token]", e);
-            return INVALID;
+            return TokenState.INVALID;
         } catch (IllegalArgumentException e) {
             log.error("[JWT claims is empty]", e);
-            return INVALID;
+            return TokenState.INVALID;
         }
     }
 

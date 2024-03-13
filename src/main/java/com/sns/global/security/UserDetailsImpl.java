@@ -1,6 +1,6 @@
 package com.sns.global.security;
 
-import com.sns.user.entity.User;
+import com.sns.domain.user.entity.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Getter;

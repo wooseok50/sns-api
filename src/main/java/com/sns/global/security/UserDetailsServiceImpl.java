@@ -1,7 +1,7 @@
 package com.sns.global.security;
 
-import com.sns.user.entity.User;
-import com.sns.user.repository.UserRepository;
+import com.sns.domain.user.entity.User;
+import com.sns.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

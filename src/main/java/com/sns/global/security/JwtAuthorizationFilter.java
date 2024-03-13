@@ -6,7 +6,7 @@ import com.sns.global.jwt.JwtProvider;
 import com.sns.global.jwt.TokenState;
 import com.sns.global.jwt.entity.RefreshTokenEntity;
 import com.sns.global.jwt.repository.TokenRepository;
-import com.sns.user.entity.UserRole;
+import com.sns.domain.user.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
