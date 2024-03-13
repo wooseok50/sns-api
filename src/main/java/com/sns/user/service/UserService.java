@@ -76,4 +76,9 @@ public class UserService {
     public void deleteUserInfo(User user) {
         user.softDelete();
     }
+
+    public void throwExceptionIfUserNotFound(Long userId) {
+        userRepository.findById(userId).orElseThrow(
+            () -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
+    }
 }
