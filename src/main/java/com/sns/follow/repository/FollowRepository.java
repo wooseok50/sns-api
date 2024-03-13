@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface FollowRepository extends JpaRepository<Follow, Long>, FollowRepositoryCustom {
 
     Optional<Follow> findByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
+
+    Optional<Follow> findFirstByToUserIdOrderByCreatedAtDesc(Long toUserId);
 }

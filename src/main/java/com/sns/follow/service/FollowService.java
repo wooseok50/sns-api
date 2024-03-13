@@ -55,4 +55,9 @@ public class FollowService {
 
         followRepository.delete(follow);
     }
+
+    public Follow findLatestUser(Long toUserId) {
+        return followRepository.findFirstByToUserIdOrderByCreatedAtDesc(toUserId)
+            .orElseThrow(() -> new IllegalArgumentException("팔로우를 찾을 수 없습니다."));
+    }
 }

@@ -81,4 +81,9 @@ public class UserService {
         userRepository.findById(userId).orElseThrow(
             () -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
     }
+
+    public User findUser(Long userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new UserNotFoundException("해당 User는 존재하지 않습니다."));
+    }
 }

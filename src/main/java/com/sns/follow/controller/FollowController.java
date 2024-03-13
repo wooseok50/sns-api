@@ -4,6 +4,7 @@ import com.sns.follow.dto.FollowerResponseDto;
 import com.sns.follow.dto.FollowingResponseDto;
 import com.sns.follow.service.FollowService;
 import com.sns.global.security.UserDetailsImpl;
+import com.sns.notification.service.NotificationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowController {
 
     private final FollowService followService;
+    private final NotificationService notificationService;
 
     @PostMapping("/follows/{toUserId}")
     public ResponseEntity<Void> createFollow(
@@ -27,6 +29,7 @@ public class FollowController {
         @PathVariable Long toUserId
     ) {
         followService.createFollow(userDetails.getUser().getId(), toUserId);
+        notificationService.notifyFollow(toUserId);
         return ResponseEntity.status(HttpStatus.OK.value()).build();
     }
 

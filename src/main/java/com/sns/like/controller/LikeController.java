@@ -3,6 +3,7 @@ package com.sns.like.controller;
 import com.sns.global.security.UserDetailsImpl;
 import com.sns.like.dto.LikeResponseDto;
 import com.sns.like.service.LikeService;
+import com.sns.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LikeController {
 
     private final LikeService likeService;
+    private final NotificationService notificationService;
 
     @PostMapping
     public ResponseEntity<Void> createPostLike(@PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         likeService.createPostLike(postId, userDetails.getUser().getId());
+        notificationService.notifyLike(postId);
         return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }
 

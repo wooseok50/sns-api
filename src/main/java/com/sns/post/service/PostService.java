@@ -83,7 +83,7 @@ public class PostService {
         post.softDelete();
     }
 
-    private Post findPost(Long postId) {
+    public Post findPost(Long postId) {
         return postRepository.findById(postId).orElseThrow(
             () -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
     }

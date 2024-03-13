@@ -50,4 +50,9 @@ public class LikeService {
 
         likeRepository.delete(like);
     }
+
+    public Like findLatestLike(Long postId) {
+        return likeRepository.findFirstByPostIdOrderByCreatedAtDesc(postId)
+            .orElseThrow(() -> new IllegalArgumentException("좋아요를 찾을 수 없습니다."));
+    }
 }
