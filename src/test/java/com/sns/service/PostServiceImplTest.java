@@ -28,9 +28,8 @@ class PostServiceImplTest {
     /*
      * 게시글 생성 메서드의 예외 로직이 없음으로 테스트 생략
      * 게시글 수정, 삭제 메서드의 예외 로직이 같은 이유로 필요한 메서드만 테스트
-     * 게시글 전체 조회 로직이 repository 단에 해당함으로 생략
+     * 게시글 전체 조회 로직이 repository 단의 로직으로 생략
      * */
-
     @InjectMocks
     private PostServiceImpl postServiceImpl;
 
