@@ -1,7 +1,6 @@
 package com.sns.domain.post.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sns.domain.post.entity.Post;
 import com.sns.domain.post.entity.QPost;
@@ -27,11 +26,10 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public Page<Post> findBySearchOption(String title, String username, Pageable pageable) {
+    public Page<Post> queryPosts(String title, String username, Pageable pageable) {
 
         BooleanBuilder predicate = new BooleanBuilder();
-        BooleanExpression exp = post.deleted_YN.eq("N");
-        predicate.and(exp);
+        predicate.and(post.deleted_YN.eq("N"));
 
         if (title != null) {
             predicate.and(post.title.contains(title));
@@ -40,15 +38,17 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
             predicate.and(post.username.eq(username));
         }
 
-        List<Post> posts = jpaQueryFactory.selectFrom(post)
+        List<Post> posts = jpaQueryFactory
+            .selectFrom(post)
             .where(predicate)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetch();
 
-        long totalCount = jpaQueryFactory.selectFrom(post)
+        long totalCount = jpaQueryFactory
+            .selectFrom(post)
             .where(predicate)
-            .fetch().size();
+            .fetchCount();
 
         return new PageImpl<>(posts, pageable, totalCount);
     }

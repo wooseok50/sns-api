@@ -44,13 +44,13 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PostResponseDto>> getPostsByOptions(
+    public ResponseEntity<Page<PostResponseDto>> getPostsByCriteria(
         @RequestParam(value = "title", required = false) String title,
         @RequestParam(value = "username", required = false) String username,
         @RequestParam(value = "page", defaultValue = "1") int page,
         @RequestParam(value = "size", defaultValue = "10") int size
     ) {
-        Page<PostResponseDto> responseDto = postService.getPostsByOptions(title, username, page - 1,
+        Page<PostResponseDto> responseDto = postService.getPostsByCriteria(title, username, page - 1,
             size);
         return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
     }

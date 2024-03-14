@@ -50,13 +50,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<PostResponseDto> getPostsByOptions(String title, String username, int page,
+    public Page<PostResponseDto> getPostsByCriteria(String title, String username, int page,
         int size) {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "created_at");
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Post> posts = postRepository.findBySearchOption(title, username, pageable);
+        Page<Post> posts = postRepository.queryPosts(title, username, pageable);
 
         return posts.map(PostResponseDto::new);
     }

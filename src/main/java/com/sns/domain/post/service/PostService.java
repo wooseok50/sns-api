@@ -36,7 +36,7 @@ public interface PostService {
      * @param size     size
      * @return 게시글 정보 (Page)
      */
-    Page<PostResponseDto> getPostsByOptions(String title, String username, int page,
+    Page<PostResponseDto> getPostsByCriteria(String title, String username, int page,
         int size);
 
     /**

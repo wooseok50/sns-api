@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface PostRepositoryCustom {
     Optional<Post> searchPost(Long postId);
 
-    Page<Post> findBySearchOption(String title, String username, Pageable pageable);
+    Page<Post> queryPosts(String title, String username, Pageable pageable);
 }
