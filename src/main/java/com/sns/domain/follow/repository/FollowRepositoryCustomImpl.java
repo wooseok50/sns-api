@@ -18,27 +18,22 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
 
     @Override
     public List<FollowingResponseDto> getFollowingList(Long fromUserId) {
-
-        List<FollowingResponseDto> followingResponseDtoList = jpaQueryFactory
+        return jpaQueryFactory
             .select(Projections.constructor(FollowingResponseDto.class, follow, user.username))
             .from(follow)
             .join(user).on(follow.toUserId.eq(user.id))
             .where(follow.fromUserId.eq(fromUserId))
             .fetch();
-
-        return followingResponseDtoList;
     }
 
     @Override
     public List<FollowerResponseDto> getFollowerList(Long toUserId) {
-
-        List<FollowerResponseDto> followerResponseDtoList = jpaQueryFactory
+        return jpaQueryFactory
             .select(Projections.constructor(FollowerResponseDto.class, follow, user.username))
             .from(follow)
             .join(user).on(follow.fromUserId.eq(user.id))
             .where(follow.toUserId.eq(toUserId))
             .fetch();
 
-        return followerResponseDtoList;
     }
 }
