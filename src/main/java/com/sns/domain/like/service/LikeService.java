@@ -13,7 +13,6 @@ public interface LikeService {
      * @param postId 게시글 Id
      * @param userId 좋아요를 누를 유저 Id
      */
-    @Transactional
     void createPostLike(Long postId, Long userId);
 
     /**
@@ -23,7 +22,6 @@ public interface LikeService {
      * @param postId 게시글 Id
      * @return 좋아요 수
      */
-    @Transactional(readOnly = true)
     LikeResponseDto countLikes(Long postId);
 
     /**
@@ -33,7 +31,6 @@ public interface LikeService {
      * @param postId 게시글 Id
      * @param userId 좋아요를 삭제할 유저 Id
      */
-    @Transactional
     void deletePostLike(Long postId, Long userId);
 
     /**
