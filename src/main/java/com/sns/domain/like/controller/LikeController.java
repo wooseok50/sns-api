@@ -36,7 +36,7 @@ public class LikeController {
     public ResponseEntity<LikeResponseDto> countLikes(@PathVariable Long postId
     ) {
         LikeResponseDto responseDto = likeService.countLikes(postId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @DeleteMapping
@@ -44,7 +44,7 @@ public class LikeController {
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         likeService.deletePostLike(postId, userDetails.getUser().getId());
-        return ResponseEntity.status(HttpStatus.OK.value()).build();
+        return ResponseEntity.ok().build();
     }
 }
 

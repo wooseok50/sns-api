@@ -40,7 +40,7 @@ public class PostController {
         @PathVariable Long postId
     ) {
         PostResponseDto responseDto = postService.getPost(postId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @GetMapping
@@ -52,7 +52,7 @@ public class PostController {
     ) {
         Page<PostResponseDto> responseDto = postService.getPostsByCriteria(title, username, page - 1,
             size);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @PutMapping("/{postId}")
@@ -62,7 +62,7 @@ public class PostController {
         @RequestBody PostRequestDto postRequestDto
     ) {
         postService.updatePost(postId, userDetails.getUser().getId(), postRequestDto);
-        return ResponseEntity.status(HttpStatus.OK.value()).build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{postId}")
@@ -71,6 +71,6 @@ public class PostController {
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         postService.deletePost(postId, userDetails.getUser().getId());
-        return ResponseEntity.status(HttpStatus.OK.value()).build();
+        return ResponseEntity.ok().build();
     }
 }

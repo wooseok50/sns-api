@@ -30,7 +30,7 @@ public class FollowController {
     ) {
         followService.createFollow(userDetails.getUser().getId(), toUserId);
         notificationService.notifyFollow(toUserId);
-        return ResponseEntity.status(HttpStatus.OK.value()).build();
+        return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }
 
     @GetMapping("/users/{userId}/follows/following")
@@ -38,7 +38,7 @@ public class FollowController {
         @PathVariable Long userId
     ) {
         List<FollowingResponseDto> followingResponseDtos = followService.getFollowingList(userId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(followingResponseDtos).getBody();
+        return ResponseEntity.ok().body(followingResponseDtos).getBody();
     }
 
     @GetMapping("/users/{userId}/follows/follower")
@@ -46,7 +46,7 @@ public class FollowController {
         @PathVariable Long userId
     ) {
         List<FollowerResponseDto> followerResponseDtos = followService.getFollowerList(userId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(followerResponseDtos).getBody();
+        return ResponseEntity.ok().body(followerResponseDtos).getBody();
     }
 
     @DeleteMapping("/follows/{toUserId}")
@@ -55,6 +55,6 @@ public class FollowController {
         @PathVariable Long toUserId
     ) {
         followService.deleteFollow(userDetails.getUser().getId(), toUserId);
-        return ResponseEntity.status(HttpStatus.OK.value()).build();
+        return ResponseEntity.ok().build();
     }
 }

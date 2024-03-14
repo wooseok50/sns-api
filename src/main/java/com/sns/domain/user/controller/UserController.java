@@ -36,11 +36,11 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<CommonResponseDto<String>> logout(
+    public ResponseEntity<CommonResponseDto<Void>> logout(
         @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         userService.logout(userDetailsImpl.getUser().getId());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{userId}")
@@ -48,7 +48,7 @@ public class UserController {
         @PathVariable("userId") Long userId
     ) {
         UserResponseDto responseDto = userService.getUserInfo(userId);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @GetMapping
@@ -57,7 +57,7 @@ public class UserController {
         @RequestParam("size") int size
     ) {
         Page<UserResponseDto> responseDto = userService.getAllUserInfo(page - 1, size);
-        return ResponseEntity.status(HttpStatus.OK.value()).body(responseDto);
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @DeleteMapping
@@ -65,6 +65,6 @@ public class UserController {
         @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         userService.deleteUserInfo(userDetailsImpl.getUser());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 }
