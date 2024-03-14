@@ -15,7 +15,6 @@ public interface FollowService {
      * @param fromUserId 유저 Id
      * @param toUserId   팔로우할 유저 Id
      */
-    @Transactional
     void createFollow(Long fromUserId, Long toUserId);
 
     /**
@@ -24,7 +23,6 @@ public interface FollowService {
      * @param fromUserId 유저 Id
      * @return 유저의 Id와 username 정보 리스트
      */
-    @Transactional(readOnly = true)
     List<FollowingResponseDto> getFollowingList(Long fromUserId);
 
     /**
@@ -33,7 +31,6 @@ public interface FollowService {
      * @param toUserId 유저 Id
      * @return 유저의 Id와 username 정보 리스트
      */
-    @Transactional(readOnly = true)
     List<FollowerResponseDto> getFollowerList(Long toUserId);
 
     /**
@@ -43,7 +40,6 @@ public interface FollowService {
      * @param fromUserId 유저 Id
      * @param toUserId   팔로우 삭제할 유저 Id
      */
-    @Transactional
     void deleteFollow(Long fromUserId, Long toUserId);
 
     /**

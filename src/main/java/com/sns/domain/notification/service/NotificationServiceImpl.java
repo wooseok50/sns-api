@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
@@ -29,6 +30,7 @@ public class NotificationServiceImpl implements NotificationService {
     private static Map<Long, Integer> notificationCounts = new HashMap<>();
 
     @Override
+    @Transactional
     public SseEmitter subscribe(Long userId) { // userId : 알림 받을 계정
         // 현재 클라이언트를 위한 sseEmitter 생성
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
@@ -51,6 +53,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional
     public void notifyLike(Long postId) {
         Like receiveLike = likeService.findLatestLike(postId);
         long userId = postService.findPost(postId).getUserId();
@@ -86,6 +89,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional
     public void notifyFollow(Long toUserId) {
         long userId = userService.findUser(toUserId).getId();
         Follow follow = followService.findLatestUser(toUserId);
@@ -121,6 +125,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional
     public void deleteNotification(Long id) throws IOException {
         Notification notification = notificationRepository.findById(id).orElseThrow(
             () -> new IllegalArgumentException("알림을 찾을 수 없습니다.")

@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface SearchUser {
+public interface UserRepositoryCustom {
 
     Optional<User> searchUserInfo(Long userId);
 

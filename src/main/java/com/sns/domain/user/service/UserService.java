@@ -14,7 +14,6 @@ public interface UserService {
      *
      * @param requestDto 회원가입 정보
      */
-    @Transactional
     void signup(SignupRequestDto requestDto);
 
     /**
@@ -23,7 +22,6 @@ public interface UserService {
      *
      * @param userId 로그아웃 유저 ID
      */
-    @Transactional
     void logout(Long userId);
 
     /**
@@ -32,7 +30,6 @@ public interface UserService {
      * @param userId 조회할 유저 ID
      * @return 삭제된(soft delete) 유저 정보를 제외한 정보
      */
-    @Transactional(readOnly = true)
     UserResponseDto getUserInfo(Long userId);
 
     /**
@@ -42,7 +39,6 @@ public interface UserService {
      * @param size 조회 size
      * @return 삭제된(soft delete) 전체 유저 정보를 제외한 정보
      */
-    @Transactional(readOnly = true)
     Page<UserResponseDto> getAllUserInfo(int page, int size);
 
     /**
@@ -51,7 +47,6 @@ public interface UserService {
      *
      * @param user 유저 정보 삭제 요청자
      */
-    @Transactional
     void deleteUserInfo(User user);
 
     /**
