@@ -20,7 +20,7 @@ public class LikeServiceImpl implements LikeService {
     @Transactional
     public void createPostLike(Long postId, Long userId) {
 
-        postService.checkValidatePost(postId);
+         // postService.checkValidatePost(postId);
 
         if (likeRepository.findLikeByPostIdAndUserId(postId, userId).isPresent()) {
             throw new InvalidInputException("이미 해당 게시물에 좋아요를 눌렀습니다.");
@@ -34,7 +34,7 @@ public class LikeServiceImpl implements LikeService {
     @Transactional(readOnly = true)
     public LikeResponseDto countLikes(Long postId) {
 
-        postService.checkValidatePost(postId);
+       // postService.checkValidatePost(postId);
 
         Long likeCount = likeRepository.countByPostId(postId).orElse(0L);
 
@@ -45,7 +45,7 @@ public class LikeServiceImpl implements LikeService {
     @Transactional
     public void deletePostLike(Long postId, Long userId) {
 
-        postService.checkValidatePost(postId);
+        //postService.checkValidatePost(postId);
 
         Like like = likeRepository.findLikeByPostIdAndUserId(postId, userId).orElseThrow(
             () -> new InvalidInputException("이미 해당 게시물의 좋아요를 취소한 상태입니다.")
