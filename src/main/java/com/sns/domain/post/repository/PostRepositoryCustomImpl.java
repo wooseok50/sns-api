@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
-public class SearchPostImpl implements SearchPost {
+public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
     QPost post = QPost.post;
