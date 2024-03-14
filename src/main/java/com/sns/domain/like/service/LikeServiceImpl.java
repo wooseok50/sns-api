@@ -1,9 +1,9 @@
 package com.sns.domain.like.service;
 
+import com.sns.domain.post.aop.ValidatePost;
 import com.sns.domain.like.dto.LikeResponseDto;
 import com.sns.domain.like.entity.Like;
 import com.sns.domain.like.repository.LikeRepository;
-import com.sns.domain.post.service.PostService;
 import com.sns.global.exception.InvalidInputException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
-    private final PostService postService;
 
     @Override
+    @ValidatePost
     @Transactional
     public void createPostLike(Long postId, Long userId) {
-
-         // postService.checkValidatePost(postId);
 
         if (likeRepository.findLikeByPostIdAndUserId(postId, userId).isPresent()) {
             throw new InvalidInputException("이미 해당 게시물에 좋아요를 눌렀습니다.");
@@ -31,10 +29,9 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
+    @ValidatePost
     @Transactional(readOnly = true)
     public LikeResponseDto countLikes(Long postId) {
-
-       // postService.checkValidatePost(postId);
 
         Long likeCount = likeRepository.countByPostId(postId).orElse(0L);
 
@@ -42,10 +39,9 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
+    @ValidatePost
     @Transactional
     public void deletePostLike(Long postId, Long userId) {
-
-        //postService.checkValidatePost(postId);
 
         Like like = likeRepository.findLikeByPostIdAndUserId(postId, userId).orElseThrow(
             () -> new InvalidInputException("이미 해당 게시물의 좋아요를 취소한 상태입니다.")

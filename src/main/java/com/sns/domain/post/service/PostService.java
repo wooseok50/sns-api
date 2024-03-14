@@ -15,7 +15,6 @@ public interface PostService {
      * @param postRequestDto 등록할 게시글의 title, content, username
      * @param user 게시글을 등록할 유저
      */
-    @Transactional
     void createPost(PostRequestDto postRequestDto, User user);
 
     /**
@@ -25,7 +24,6 @@ public interface PostService {
      * @param postId 조회할 게시글 Id
      * @return 게시글 정보
      */
-    @Transactional(readOnly = true)
     PostResponseDto getPost(Long postId);
 
     /**
@@ -38,7 +36,6 @@ public interface PostService {
      * @param size     size
      * @return 게시글 정보 (Page)
      */
-    @Transactional(readOnly = true)
     Page<PostResponseDto> getPostsByOptions(String title, String username, int page,
         int size);
 
@@ -50,7 +47,6 @@ public interface PostService {
      * @param userId 게시글의 userId
      * @param postRequestDto page
      */
-    @Transactional
     void updatePost(Long postId, Long userId, PostRequestDto postRequestDto);
 
     /**
@@ -61,7 +57,6 @@ public interface PostService {
      * @param postId 수정할 게시글의 Id
      * @param userId 게시글의 userId
      */
-    @Transactional
     void deletePost(Long postId, Long userId);
 
     /**
@@ -71,13 +66,5 @@ public interface PostService {
      * @param postId 조회할 유저 ID
      * @return userId로 조회한 유저 객체
      */
-    Post findPost(Long postId);
-
-    /**
-     * 게시글 존재 여부 체크
-     * 게시글이 존재하지 않을 경우 exception
-     *
-     * @param postId 조회할 게시글 Id
-     */
-    void checkValidatePost(Long postId);
+    Post findPost(Long postId);;
 }
