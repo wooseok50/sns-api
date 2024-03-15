@@ -26,9 +26,10 @@ public class NotificationController {
 
     @Operation(summary = "알림 생성", description = "실시간 알림 서비스 연결")
     @GetMapping("/notification/subscribe")
-    public SseEmitter subscribe(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public SseEmitter subscribe(
+        @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
         SseEmitter sseEmitter = notificationService.subscribe(userDetails.getUser().getId());
-
         return sseEmitter;
     }
 

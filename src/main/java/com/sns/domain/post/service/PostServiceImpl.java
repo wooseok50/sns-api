@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,8 +52,7 @@ public class PostServiceImpl implements PostService {
     public Page<PostResponseDto> getPostsByCriteria(String title, String username, int page,
         int size) {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "created_at");
-        Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = PageRequest.of(page, size);
 
         Page<Post> posts = postRepository.queryPosts(title, username, pageable);
 

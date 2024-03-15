@@ -30,6 +30,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         List<User> users = jpaQueryFactory
             .selectFrom(user)
             .where(user.deleted_YN.eq("N"))
+            .orderBy(user.username.asc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetch();
