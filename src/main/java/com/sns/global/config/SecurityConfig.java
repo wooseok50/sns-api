@@ -68,6 +68,7 @@ public class SecurityConfig {
                 .requestMatchers("/users/signup").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
                 .requestMatchers("/users/login").permitAll()
                 .requestMatchers("/users/logout").permitAll()
+                .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 

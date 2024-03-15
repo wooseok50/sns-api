@@ -1,9 +1,11 @@
 package com.sns.domain.like.controller;
 
-import com.sns.global.security.UserDetailsImpl;
-import com.sns.domain.like.service.LikeService;
 import com.sns.domain.like.dto.LikeResponseDto;
+import com.sns.domain.like.service.LikeService;
 import com.sns.domain.notification.service.NotificationService;
+import com.sns.global.security.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Like")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts/{postId}/like")
@@ -23,6 +26,7 @@ public class LikeController {
     private final LikeService likeService;
     private final NotificationService notificationService;
 
+    @Operation(summary = "좋아요 생성")
     @PostMapping
     public ResponseEntity<Void> createPostLike(@PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -32,6 +36,7 @@ public class LikeController {
         return ResponseEntity.status(HttpStatus.CREATED.value()).build();
     }
 
+    @Operation(summary = "좋아요 수 조회")
     @GetMapping
     public ResponseEntity<LikeResponseDto> countLikes(@PathVariable Long postId
     ) {
@@ -39,6 +44,7 @@ public class LikeController {
         return ResponseEntity.ok().body(responseDto);
     }
 
+    @Operation(summary = "좋아요 취소")
     @DeleteMapping
     public ResponseEntity<Void> deletePostLike(@PathVariable Long postId,
         @AuthenticationPrincipal UserDetailsImpl userDetails
