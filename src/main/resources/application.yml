@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    main:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3307/my
+        read-only: false
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    replica:
+      hikari:
+        jdbc-url: jdbc:mysql://localhost:3308/my
+        read-only: true
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+#logging:
+#  level:
+#    com.zaxxer.hikari: TRACE
+#    com.zaxxer.hikari.HikariConfig: DEBUG
+
