@@ -7,7 +7,6 @@ spring:
         username: root
         password: 1234
         driver-class-name: com.mysql.cj.jdbc.Driver
-
     replica:
       hikari:
         jdbc-url: jdbc:mysql://localhost:3308/my
@@ -15,7 +14,6 @@ spring:
         username: root
         password: 1234
         driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,4 +28,18 @@ spring:
 #  level:
 #    com.zaxxer.hikari: TRACE
 #    com.zaxxer.hikari.HikariConfig: DEBUG
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, prometheus
+
+  endpoint:
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+
 
